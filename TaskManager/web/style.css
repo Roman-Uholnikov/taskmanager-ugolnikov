@@ -1,0 +1,161 @@
+body	{
+	margin: 0 0 10px 0;
+	padding: 0;
+	background: #fff;
+	color: #669ac1;
+	font: 90% verdana, arial, sans-serif;
+	text-align: left;
+        font-weight:normal; 
+}
+ 
+h1, h2, h3 {
+      font-family:  Verdana, Tahoma, arial, sans-serif; 
+      font-weight:normal;       
+}
+h1 { 
+      font-size: 140%; 
+      font-weight:normal; 
+      color: #888;
+      padding: 0;
+      margin: 0.5em 0 0.5em 0; 
+}
+
+h2 {
+	font-size: 120%;
+	color: #999999;
+}
+
+h3 {
+      font-size: 110%;
+      color: #c33;    
+      margin:1em 0 0 0;     
+      padding: 0;
+}
+h5 {
+	margin: 0 0 10px 0;
+	padding: 0;
+	color: #669ac1;
+	font: 100% verdana, arial, sans-serif;
+	text-align: center;
+	font-weight: bold;
+}
+h6 {
+	margin: 0 0 10px 0;
+	padding: 0;
+	color: #FF0000;
+	font: 100% verdana, arial, sans-serif;
+	text-align: left;
+	font-weight: bold;
+}
+
+h4 {
+      float: left;
+      font-family:  Verdana, Tahoma, arial, sans-serif; 
+      font-size: 100%; 
+      color: #555555;
+      margin: 1px 0 0 5px;
+      padding: 0;
+      text-decoration:none;
+      font-weight: normal;
+}
+.comment{
+	margin: 0 0 10px 0;
+	padding: 0;
+	background: #fff;
+	color: #449ac1;
+	font: 110% verdana, arial, sans-serif;
+	text-align: left;
+}
+.lec { 
+      float: left;
+      font-family:  Verdana, Tahoma, arial, sans-serif; 
+      font-size: 100%; 
+      color: #555555;
+      margin: 1px 0 0 5px;
+      padding: 0;
+}
+
+.lec_list { 
+      float: left;
+      font-family:  Courier New,Tahoma, arial, sans-serif; 
+      font-size: 120%; 
+      color: #405191;
+      text-align: center;
+      text-decoration:none;
+}
+numb {
+
+      font-family:  Tahoma, arial, sans-serif; 
+      font-size: 80%; 
+      color: #112111;
+      text-align: center;
+      font-weight:bold;
+}
+
+hr { 
+      float: center;
+      font-size: 100%; 
+      color: #f2f779;
+}
+.reg { 
+      float: center;
+      font-family:  Courier New,Tahoma, arial, sans-serif; 
+      font-size: 110%; 
+      color: #405191;
+      text-align: left;
+      text-decoration:none;
+}
+.data { 
+      float: center;
+      font-family:  Courier New,Tahoma, arial, sans-serif; 
+      font-size: 120%; 
+      color: #ff0000;
+      text-align: left;
+}
+
+.bt {
+	background: #fff;
+	color: #405191;
+        font-family:  Times New Roman; 
+        text-decoration:none;
+         font-size: 140%; 
+}
+.login { 
+      float: center;
+      font-family:  Courier New,Tahoma, arial, sans-serif; 
+      font-size: 130%; 
+      color: #669ac1;
+      text-align: center;
+      font-weight:bold;
+}
+.del
+{
+	float: right;
+	font-family:  Geneva, Arial, Helvetica, sans-serif;
+	font-size: 80%;
+	color: #669ac1;
+	vertical-align: top;
+	font-weight:bold;
+}
+
+.HightPriority{
+    background-image: url("/TaskManager/images/hightask.JPG");
+    background-repeat: no-repeat;
+}
+
+.MiddlePriority{
+    background-image: url("/TaskManager/images/middletask.JPG");
+    background-repeat: no-repeat;
+}
+.LowPriority{
+    background-image: url("/TaskManager/images/lowtask.JPG");
+    background-repeat: no-repeat;
+}
+.ClosedPriority{
+    background-image: url("/TaskManager/images/donetask.JPG");
+    background-repeat: no-repeat;
+}
+.search{
+    background-image: url("/TaskManager/images/search.JPG");
+    background-repeat: no-repeat;
+}
