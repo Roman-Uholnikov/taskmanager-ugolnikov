@@ -259,7 +259,7 @@ public class DAO {
     + "FROM (groups INNER JOIN users ON groups.id = users.group) INNER JOIN demends ON users.id = demends.reciver\n"
     + "WHERE (((groups.id="+groupId+") AND ((demends.grouptype > 0))) OR (demends.reciver = " + reciverId + "))";
         
-        if(showeDone){
+        if(!showeDone){//показываем только те у которых нет времени закрытия, т. е. активные
             sqlStatement += "AND demends.closedate = null";
         }
         

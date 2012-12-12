@@ -53,7 +53,7 @@ public class Tasks extends HttpServlet {
             //пробуем создать пользователя
             user = User.getUser(WebEngine.getUserId(request));
             //пользователь.Получить список заданий
-    returned false!!!        boolean s = WebEngine.showDone(request);
+            boolean s = WebEngine.showDone(request);//возвращает ложьХХХ
             user.makeTasksQueue(WebEngine.showDone(request));
             
             //создаем переменную с помощью которой мы передадим данные в jsp
