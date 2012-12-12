@@ -1,0 +1,40 @@
+
+CREATE TABLE `groups` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `fullname` varchar(1023) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL,
+  `loginname` varchar(128) NOT NULL,
+  `group` int(11) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `rights` int(11) default "1",
+  `location` varchar(255) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `demends` (
+  `id` int(11) NOT NULL auto_increment,
+  `customer` int(11) NOT NULL,
+  `createdate` datetime NOT NULL,
+  `priority` int(11) NOT NULL,
+  `reciver` int(11) NOT NULL,
+  `grouptype` TINYINT(1) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `text` text(21845), 
+  `comments` varchar(1023),
+  `localization` varchar(254),
+  `closedate` datetime,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+ALTER TABLE users ADD FOREIGN KEY users(`group`) REFERENCES groups(`id`)
+
+ALTER TABLE demends ADD FOREIGN KEY customer(`customer`) REFERENCES users(`id`)
