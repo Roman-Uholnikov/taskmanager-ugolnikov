@@ -32,7 +32,7 @@
             <tr class="xxx">
                 <td colspan="2" class="<%=priority%>">
                     <br><h3>заявка №<i><%=task.getId()%></i> <%=task.getTitle()%> </h3>
-                    <h3><%=task.getCreateDate().toLocaleString()%> <a class="xxx" title="<%=task.getCostumer()%>"><%=task.getCostumer().getName()%></a>.</h3>
+                    <h3><%=task.getCreateDate().toLocaleString()%> <a class="xxx" title="<%=task.getCostumer()%>"><%=task.getCostumer()%></a>.</h3>
                     
                     <% if(task.getCloseDate() != null){ %>
                     

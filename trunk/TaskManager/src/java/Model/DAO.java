@@ -130,6 +130,7 @@ public class DAO {
                         
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception("база данных не рабтает. Свяжитесь с системным администратором");
         }finally{
             try {
                 //закрыть выражение
@@ -138,6 +139,7 @@ public class DAO {
                 //закрыть результируюший набор
             } catch (SQLException ex) {
                 Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+                throw new Exception("база данных не рабтает. Свяжитесь с системным администратором");
             }
         }
         
@@ -343,10 +345,11 @@ public class DAO {
             String currentLogin = null;
             
             while (rs.next()) {
-                task = new Task(rs.getInt("id"), rs.getInt("cuctomer"), rs.getDate("createdate"),
+!!!                task = new Task(rs.getInt("id"), rs.getInt("cuctomer"), rs.getDate("createdate"),
                         rs.getInt("priority"), rs.getInt("reciver"), rs.getBoolean("grouptype"), 
                         rs.getString("title"), rs.getString("text"), rs.getString("comments"), 
                         rs.getString("localisation"), rs.getDate("closedate"));
+                int g = 7;
                 resultList.add(task);
                 
             }

@@ -57,7 +57,7 @@ public class WebEngine {
         response.addCookie(userIDCookie); 
         
         //default value. user can change it
-        userShowDoneTask = new Cookie("ShowDoneTask", String.valueOf(true));
+        userShowDoneTask = new Cookie("ShowDoneTask", "true");
         response.addCookie(userShowDoneTask); 
     }
     
@@ -73,7 +73,7 @@ public class WebEngine {
     
    
 
-    public static void checkUser(HttpServletRequest request) throws UserAutentificationException {
+    public static void checkUser(HttpServletRequest request, HttpServletResponse response) throws UserAutentificationException {
         //проверка ид сессии пользователя,с ид сохраненной в куки
         int userID = -1;
         try{
@@ -88,6 +88,15 @@ public class WebEngine {
         
         if (userID < 0){
             throw new UserAutentificationException("Добро пожаловать");
+        }
+        
+        String df = request.getParameter("showdone");           //ХХХ почемуто не работает.
+                                                                //входит сюда только один раз при авторизации. А потом нет...
+        boolean showDone = Boolean.getBoolean(request.getParameter("showdone"));
+        if (showDone){
+                    //default value. user can change it
+             Cookie userShowDoneTask = new Cookie("ShowDoneTask", "true");
+             response.addCookie(userShowDoneTask); 
         }
 
     }
@@ -154,8 +163,19 @@ public class WebEngine {
      * @return 
      */
     public static boolean showDone(HttpServletRequest request) {
-        boolean restult = Boolean.valueOf((String)request.getSession().getAttribute("ShowDoneTask"));
-        return restult;
+//        String s = (String)request.getSession().getAttribute("ShowDoneTask");
+//        boolean restult = Boolean.valueOf((String)request.getSession().getAttribute("ShowDoneTask"));
+//        return restult;
+        boolean showDone = false;
+        try{
+            for (Cookie cookie : request.getCookies()) {
+                if (cookie.getName().equalsIgnoreCase("ShowDoneTask")){
+                    showDone = Boolean.valueOf(cookie.getValue());
+                }
+            }
+        }catch(NullPointerException e){
+        }
+        return showDone;
     }
 
        

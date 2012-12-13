@@ -39,7 +39,6 @@ public class Login extends HttpServlet {
         RequestDispatcher dispatcherLogin = request.getRequestDispatcher("/LoginPage.jsp");
         RequestDispatcher dispatcherError = request.getRequestDispatcher("/applicationError.jsp");
         String requedUrl;
-        Group g =  new Group();
         requedUrl = WebEngine.TASKS_PATH;
         try{ 
             if(request.getParameter("action")!= null){
