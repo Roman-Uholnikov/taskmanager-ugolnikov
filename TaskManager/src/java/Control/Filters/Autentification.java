@@ -36,7 +36,7 @@ public class Autentification implements Filter {
    
     try{
         //проверка сессии пользователя, куки, или както так
-        WebEngine.checkUser(request);
+        WebEngine.checkUser(request, response);
         //если все нормально, идем дальше к приложению
         chain.doFilter(req, resp);
     }catch(UserAutentificationException e){        
