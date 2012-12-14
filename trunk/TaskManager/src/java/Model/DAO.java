@@ -330,7 +330,7 @@ public class DAO {
         ResultSet rs = null;
                 
        
-        String sqlStatement = "SELECT * FROM demends WHERE id=\"" + id+ "\" ORDER BY createdate DESC";
+        String sqlStatement = "SELECT * FROM demends WHERE id=" + id+ " ORDER BY createdate DESC";
         
         try {
             Class.forName(DATA_BASE_DRIVER);
@@ -341,11 +341,11 @@ public class DAO {
             //выполнить выражение
             statement.executeQuery(sqlStatement);
             //результирующий список откопировать
-            rs = statement.getResultSet();
+    !!!        rs = statement.getResultSet();
             String currentLogin = null;
             
             while (rs.next()) {
-!!!                task = new Task(rs.getInt("id"), rs.getInt("cuctomer"), rs.getDate("createdate"),
+                task = new Task(rs.getInt("id"), rs.getInt("cuctomer"), rs.getDate("createdate"),
                         rs.getInt("priority"), rs.getInt("reciver"), rs.getBoolean("grouptype"), 
                         rs.getString("title"), rs.getString("text"), rs.getString("comments"), 
                         rs.getString("localisation"), rs.getDate("closedate"));
