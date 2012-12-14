@@ -50,6 +50,7 @@ public class Task extends HttpServlet {
 //            //пробуем создать пользователя
 //            user = DAO.getInstance().getUser(Integer.valueOf(request.getParameter("userID")));
             //найти заявку по ИД
+            int d2 = Integer.valueOf(request.getParameter("id"));
             task = DAO.getInstance().getTask(Integer.valueOf(request.getParameter("id")));
             //положить в транспортный бин
             request.setAttribute("task", task);
