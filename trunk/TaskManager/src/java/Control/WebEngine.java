@@ -9,6 +9,7 @@ import Model.DAO;
 import Model.Group;
 import Model.User;
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -179,5 +180,24 @@ public class WebEngine {
     }
 
        
+    //парсит строку типа "2012-12-11 13:01:55.0" в Date
+    public static Date parseDate(String stringDate){
+        Date result = new Date(Integer.valueOf(stringDate.substring(0, 4))-1900,
+                Integer.valueOf(stringDate.substring(5, 7))-1,
+                Integer.valueOf(stringDate.substring(8, 10)),
+                Integer.valueOf(stringDate.substring(11, 13)),
+                Integer.valueOf(stringDate.substring(14, 16)),
+                Integer.valueOf(stringDate.substring(17, 19)));
+        //result = new Date(stringDate); //парсится но както криво (не берет время, только дату)
+//        String ssss = stringDate.substring(15, 16);
+//        result.setHours(Integer.valueOf(ssss));
+//        result.setMinutes(Integer.valueOf(stringDate.substring(18, 19)));
+        String t653464 = stringDate.substring(0, 4) + " year";
+        String t653466 = stringDate.substring(5, 7) + " Month "; 
+        String t653467 = stringDate.substring(8, 10)+ " day";
+        String t653468 = stringDate.substring(11, 13)+ " hour";
+        String t653469 = stringDate.substring(17, 19) +" minutes";
+        return result;
+    }
     
 }
