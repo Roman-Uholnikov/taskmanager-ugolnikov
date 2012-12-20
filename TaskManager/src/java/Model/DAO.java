@@ -347,20 +347,22 @@ public class DAO {
             String currentLogin = null;
             
             while (rs.next()) {
-                if (rs == null) throw new NullPointerException();
-                
+                boolean isGroupTask;
                 String s23=  rs.getString("createdate");
-                Date date = rs.getDate("createdate");
-                String sdfdf;
-                sdfdf = WebEngine.parseDate(s23).toLocaleString();
+                Date crdate = WebEngine.parseDate(rs.getString("createdate"));
+                Date cldate = WebEngine.parseDate(rs.getString("closedate"));
+                if (rs.getInt("grouptype")>0){
+                    isGroupTask = true;
+                }else{
+                    isGroupTask = false;
+                }
                 
-//                task = new Task(rs.getInt("id"), rs.getInt("cuctomer"), rs.getDate("createdate"),
-//                        rs.getInt("priority"), rs.getInt("reciver"), rs.getBoolean("grouptype"), 
-//                        rs.getString("title"), rs.getString("text"), rs.getString("comments"), 
-//                        rs.getString("localisation"), rs.getDate("closedate"));
+                task = new Task(rs.getInt("id"), rs.getInt("customer"), crdate,
+                        rs.getInt("priority"), rs.getInt("reciver"), isGroupTask, 
+                        rs.getString("title"), rs.getString("text"), rs.getString("comments"), 
+                        rs.getString("localization"), cldate);
                 
-                int g = 7; //xxx
-               // resultList.add(task);
+                resultList.add(task);
                 
             }
             

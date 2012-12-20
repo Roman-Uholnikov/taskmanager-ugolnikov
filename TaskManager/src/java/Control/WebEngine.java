@@ -189,14 +189,7 @@ public class WebEngine {
                 Integer.valueOf(stringDate.substring(14, 16)),
                 Integer.valueOf(stringDate.substring(17, 19)));
         //result = new Date(stringDate); //парсится но както криво (не берет время, только дату)
-//        String ssss = stringDate.substring(15, 16);
-//        result.setHours(Integer.valueOf(ssss));
-//        result.setMinutes(Integer.valueOf(stringDate.substring(18, 19)));
-        String t653464 = stringDate.substring(0, 4) + " year";
-        String t653466 = stringDate.substring(5, 7) + " Month "; 
-        String t653467 = stringDate.substring(8, 10)+ " day";
-        String t653468 = stringDate.substring(11, 13)+ " hour";
-        String t653469 = stringDate.substring(17, 19) +" minutes";
+
         return result;
     }
     
