@@ -12,8 +12,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -341,16 +343,24 @@ public class DAO {
             //выполнить выражение
             statement.executeQuery(sqlStatement);
             //результирующий список откопировать
-    !!!        rs = statement.getResultSet();
+            rs = statement.getResultSet();
             String currentLogin = null;
             
             while (rs.next()) {
-                task = new Task(rs.getInt("id"), rs.getInt("cuctomer"), rs.getDate("createdate"),
-                        rs.getInt("priority"), rs.getInt("reciver"), rs.getBoolean("grouptype"), 
-                        rs.getString("title"), rs.getString("text"), rs.getString("comments"), 
-                        rs.getString("localisation"), rs.getDate("closedate"));
-                int g = 7;
-                resultList.add(task);
+                if (rs == null) throw new NullPointerException();
+                
+                String s23=  rs.getString("createdate");
+                Date date = rs.getDate("createdate");
+                String sdfdf;
+                sdfdf = WebEngine.parseDate(s23).toLocaleString();
+                
+//                task = new Task(rs.getInt("id"), rs.getInt("cuctomer"), rs.getDate("createdate"),
+//                        rs.getInt("priority"), rs.getInt("reciver"), rs.getBoolean("grouptype"), 
+//                        rs.getString("title"), rs.getString("text"), rs.getString("comments"), 
+//                        rs.getString("localisation"), rs.getDate("closedate"));
+                
+                int g = 7; //xxx
+               // resultList.add(task);
                 
             }
             
