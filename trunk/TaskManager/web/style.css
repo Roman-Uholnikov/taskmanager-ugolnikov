@@ -159,3 +159,22 @@ hr {
     background-image: url("/TaskManager/images/search.JPG");
     background-repeat: no-repeat;
 }
+
+.manager{
+    background-image: url("/TaskManager/images/lightstar.JPG");
+    background-repeat: no-repeat;
+}
+
+.worker{
+    background-image: url("/TaskManager/images/darkstar.JPG");
+    background-repeat: no-repeat;
+}
+.grouptype{
+    background-image: url("/TaskManager/images/users.JPG");
+    background-repeat: no-repeat;
+}
+
+.individualtype{
+    background-image: url("/TaskManager/images/singltype.JPG");
+    background-repeat: no-repeat;
+}

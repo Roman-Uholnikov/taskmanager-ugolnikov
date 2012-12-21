@@ -76,10 +76,11 @@ List<Group> groups = (List<Group>)request.getAttribute("groups");
                 <td>
                     <a><%=user.getLocation()%></a>
                 </td>
-                <td align="center">
                     <% if(user.getRights() == 2){ //XXX delete magic 2 %> 
+                <td align="center" class="manager">
                     да
                     <% }else{ %>
+                <td align="center" class="worker">
                     нет
                     <% } %>
                 </td>
