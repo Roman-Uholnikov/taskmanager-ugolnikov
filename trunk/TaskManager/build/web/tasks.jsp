@@ -81,7 +81,7 @@
                     <% if(task.getText().length() < 36){ %>
                     <%=task.getText()%>
                     <% }else{ %>
-                    <%=task.getText().substring(0, 35)%>
+                    <%=task.getText().substring(0, 35)+"..."%>
                     <% } %>
                 </td>
                 <td>
@@ -94,7 +94,12 @@
                     <td class="individualtype">индивидуальное
                     <% } %>
                 </td>
-                <td><pre><%=task.getComment()%></pre>
+                <td>
+                    <% if(task.getComment().length() < 50){ %>
+                    <%=task.getText()%>
+                    <% }else{ %>
+                    <%=task.getComment().substring(0, 50)+"..."%>
+                    <% } %>
                 </td>
                 <td>
                     <% if (task.getCloseDate() != null){ %>
