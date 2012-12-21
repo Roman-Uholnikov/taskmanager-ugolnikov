@@ -87,11 +87,11 @@
                 <td>
                     <%=task.getLocalization()%>
                 </td>
-                <td>
+                
                     <% if(task.isGrouptype()){ %>
-                    групповое
+                    <td class="grouptype">групповое
                     <% }else{ %>
-                    индивидуальное
+                    <td class="individualtype">индивидуальное
                     <% } %>
                 </td>
                 <td><pre><%=task.getComment()%></pre>
