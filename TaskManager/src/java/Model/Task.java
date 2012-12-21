@@ -100,7 +100,11 @@ public class Task {
     }
 
     public String getTitle() {
-        return title;
+        if (this.title!= null){
+            return this.title;
+        }else{
+            return "";
+        }
     }
 
     public void setTitle(String title) {
@@ -108,7 +112,11 @@ public class Task {
     }
 
     public String getText() {
-        return text;
+        if (this.text!= null){
+            return this.text;
+        }else{
+            return "";
+        }
     }
 
     public void setText(String text) {
@@ -116,7 +124,11 @@ public class Task {
     }
 
     public String getComment() {
-        return comment;
+        if (comment!= null){
+            return comment;
+        }else{
+            return "";
+        }
     }
 
     public void setComment(String comment) {
