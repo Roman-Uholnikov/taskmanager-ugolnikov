@@ -4,9 +4,12 @@
     Author     : admin4eg
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="Model.Task"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Task task = (Task)request.getAttribute("task");
+<% 
+List<User> users = (List<User>)request.getAttribute("users");
+Task task = (Task)request.getAttribute("task");
             String priority;
             switch (task.getPriority()){
                               case 0 : priority = "LowPriority"; break;
@@ -31,7 +34,7 @@
         <table class="xxx" width="1000" align="center" border="3" cellpadding="10">
             <tr class="xxx">
                 <td colspan="2" class="<%=priority%>">
-                    <br><h3>заявка №<i><%=task.getId()%></i> <%=task.getTitle()%> </h3>
+                    <br><h3>заявка №<i><b><%=task.getId()%></b></i> <%=task.getTitle()%> </h3>
                     <h3><%=task.getCreateDate().toLocaleString()%> <a class="xxx" title="<%=task.getCostumer()%>"><%=task.getCostumer()%></a>.</h3>
                     
                     <% if(task.getCloseDate() != null){ %>
@@ -59,11 +62,14 @@
                     <input type="submit" name="add" value="add">
                     <input type="submit" name="forward" value="переслать на">
                     <select name="reciver">
-                        <option value="254345">sdcxgfdghfghfghf</option>
-                        <option value="254345">sdfghfghgfhfghghgf</option>
-                        <option value="254345">sdghghghghf</option>
+                        <option value="empty"></option>
+                        <%
+                        for(User user : users){
+                        %>
+                        <option value="<%=user.getUserID()%>"><%=user.getName()%></option>
+                        <% } %>
                     </select> 
-                    <a href="Users" target="blank"><img src="images/users.JPG" alt="найти пользователя"></a>
+                    <a href="Users" target="blank"><img src="/TaskManager/images/users.JPG" alt="найти пользователя"></a>
                 </td>
             </tr>
         </table>

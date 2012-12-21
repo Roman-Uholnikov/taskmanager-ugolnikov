@@ -6,8 +6,11 @@ package Control.Servlets;
 import Control.Exceptions.UserAutentificationException;
 import Control.WebEngine;
 import Model.DAO;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,10 +37,10 @@ public class Task extends HttpServlet {
             throws ServletException, IOException {   
         response.setContentType("text/html;charset=UTF-8");
         Model.User user; 
+        List users = new LinkedList<User>();
         Model.Task task;
         /* создаем диспетчер перенаправления*/
         RequestDispatcher dispatcherJsp = request.getRequestDispatcher("/taskComment.jsp");
-//        RequestDispatcher dispatcherLogin = request.getRequestDispatcher("/LoginPage.jsp");
         RequestDispatcher dispatcherError = request.getRequestDispatcher("/applicationError.jsp");
         try{
             //пришол ли ИД той заявки которую нужно показать
@@ -45,15 +48,15 @@ public class Task extends HttpServlet {
                 response.sendRedirect("Tasks");
                 return;
             } 
-//            //проверка сессии пользователя, куки, или както так
-//            WebEngine.checkUser(request);
-//            //пробуем создать пользователя
-//            user = DAO.getInstance().getUser(Integer.valueOf(request.getParameter("userID")));
+
             //найти заявку по ИД
             int d2 = Integer.valueOf(request.getParameter("id"));
             task = DAO.getInstance().getTask(Integer.valueOf(request.getParameter("id")));
             //положить в транспортный бин
             request.setAttribute("task", task);
+            users = DAO.getInstance().getUsers(null);
+            
+            request.setAttribute("users", users);
             
             if (dispatcherJsp != null){
                dispatcherJsp.forward(request, response);
