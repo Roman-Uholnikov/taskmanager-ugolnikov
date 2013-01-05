@@ -330,7 +330,6 @@ public class DAO {
         List<Task> resultList = new ArrayList();
         Statement statement =null;
         ResultSet rs = null;
-                
        
         String sqlStatement = "SELECT * FROM demends WHERE id=" + id+ " ORDER BY createdate DESC";
         

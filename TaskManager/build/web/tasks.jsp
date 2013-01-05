@@ -4,6 +4,7 @@
     Author     : admin
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="Model.Task"%>
 <%@page import="java.util.List"%>
 <% List<Task> tasks = (List<Task>)request.getAttribute("tasks");
@@ -102,7 +103,8 @@
                     <% } %>
                 </td>
                 <td>
-                    <% if (task.getCloseDate() != null){ %>
+                    <% 
+                    if (task.getCloseDate() != null){ %>
                     <%=task.getCloseDate().toLocaleString()%>
                     <% }else{%>
                     &nbsp;
