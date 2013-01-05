@@ -144,7 +144,12 @@ public class Task {
     }
 
     public Date getCloseDate() {
-        return closeDate;
+        String nullTime = closeDate.toGMTString();
+        if (nullTime.equalsIgnoreCase("31 Dec 1969 22:00:00 GMT")){
+            return null;
+        }else{
+            return closeDate;
+        }
     }
 
     public void setCloseDate(Date closeDate) {

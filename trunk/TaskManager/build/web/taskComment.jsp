@@ -39,7 +39,7 @@ Task task = (Task)request.getAttribute("task");
                     
                     <% if(task.getCloseDate() != null){ %>
                     
-                    <p><h3>закрыта  <%=task.getCloseDate().toLocaleString() %> </h3>
+                    <p><h3>закрыта  <% if (task.getCloseDate()!=null){out.print(task.getCloseDate().toLocaleString());} %> </h3>
                     
                     <% } %>
                     
