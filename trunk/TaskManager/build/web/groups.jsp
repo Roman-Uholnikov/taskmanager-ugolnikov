@@ -4,6 +4,7 @@
     Author     : admin4eg
 --%>
 
+<%@page import="Control.Exceptions.UserInputException"%>
 <%@page import="Model.DAO"%>
 <%@page import="Model.Group"%>
 <%@page import="java.util.List"%>
@@ -11,6 +12,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% List<Group> groups = (List<Group>)request.getAttribute("groups");
 List<User> users = (List<User>)request.getAttribute("users");
+UserInputException userException = (UserInputException)request.getAttribute("userException");
 %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +27,11 @@ List<User> users = (List<User>)request.getAttribute("users");
         <table class="xxx" width="1000" align="center" border="3" cellpadding="10">
             <tr class="xxx">
                 <td colspan="3">
-                    <h3>Группы</h3>
+                    <h1>Группы</h1>
+                    <% if(userException!=null) {
+                        out.print("<H3>"+userException+"</H3>");
+                    }
+                    %>
                 </td>
             </tr>
             <tr class="xxx">

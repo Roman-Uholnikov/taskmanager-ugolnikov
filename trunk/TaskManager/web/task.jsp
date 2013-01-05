@@ -4,7 +4,10 @@
     Author     : roman
 --%>
 
+<%@page import="Control.Exceptions.UserInputException"%>
+<%@page import="Control.Exceptions.UserAutentificationException"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% UserInputException userException = (UserInputException)request.getAttribute("userException");%>
 <!DOCTYPE html>
 
 
