@@ -4,10 +4,12 @@
     Author     : admin
 --%>
 
+<%@page import="Control.Exceptions.UserInputException"%>
 <%@page import="java.util.Date"%>
 <%@page import="Model.Task"%>
 <%@page import="java.util.List"%>
 <% List<Task> tasks = (List<Task>)request.getAttribute("tasks");
+    UserInputException userException = (UserInputException)request.getAttribute("userException");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,8 +28,8 @@
             <tr>
                 <td colspan="7">
                     <h1>Окно заголовка</h1>
-                    <% if(true) {
-                        out.print("<H3>текст ошибки</H3>");
+                    <% if(userException!=null) {
+                        out.print("<H3>"+userException+"</H3>");
                     }
                     %>
                     

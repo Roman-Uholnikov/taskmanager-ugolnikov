@@ -4,12 +4,15 @@
     Author     : admin4eg
 --%>
 
+<%@page import="Control.Exceptions.UserInputException"%>
+<%@page import="Control.Exceptions.UserAutentificationException"%>
 <%@page import="Model.DAO"%>
 <%@page import="Model.Group"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% List<User> users = (List<User>)request.getAttribute("users");
 List<Group> groups = (List<Group>)request.getAttribute("groups");
+UserInputException userException = (UserInputException)request.getAttribute("userException");
 %>
 <!DOCTYPE html>
 <html>
@@ -24,6 +27,10 @@ List<Group> groups = (List<Group>)request.getAttribute("groups");
             <tr class="xxx">
                 <td colspan="3">
                     <h1>Пользователи</h1>
+                    <% if(userException!=null) {
+                        out.print("<H3>"+userException+"</H3>");
+                    }
+                    %>
                 </td>
                 <td colspan="2" class="search">
                     <form action="<%=WebEngine.USERS_PATH%>" name="search" method="GET">
