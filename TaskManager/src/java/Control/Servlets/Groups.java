@@ -5,6 +5,7 @@
 package Control.Servlets;
 
 import Control.Exceptions.UserAutentificationException;
+import Control.Exceptions.UserInputException;
 import Control.WebEngine;
 import Model.DAO;
 import Model.Group;
@@ -38,8 +39,28 @@ public class Groups extends HttpServlet {
             throws ServletException, IOException {
         /* создаем диспетчеры перенаправления*/
         RequestDispatcher dispatcherJsp = request.getRequestDispatcher("/groups.jsp");
-            
         
+        
+        /* проверка на введеные данные*/
+        try{
+            //парсинг
+            String name = request.getParameter("groupname");
+            String title = request.getParameter("grouptitle");
+            String manager = request.getParameter("groupmanager");
+            int managerId;
+            if (manager.equalsIgnoreCase("empty")){
+                managerId = -1;
+            }else{
+                managerId = Integer.valueOf(manager);
+            }
+            //добавление
+            Group.add(name, title, managerId);
+        }catch(UserInputException e){
+            request.setAttribute("userException", e);
+        }
+        
+        
+        /* формирование ответа */
         response.setContentType("text/html;charset=UTF-8");
         List<Group> groups;
         List<User> users;

@@ -5,6 +5,7 @@
 package Model;
 
 import Control.Exceptions.UserAutentificationException;
+import Control.Exceptions.UserInputException;
 import Control.WebEngine;
 import Model.User;
 import java.sql.Connection;
@@ -615,4 +616,51 @@ public class DAO {
             return null;
         }
     }
+    
+    
+    public void addGroup(String groupname,String title,int manager) throws UserInputException {
+       
+        List<Group> resultList = new LinkedList<Group>();  
+        ResultSet rs;
+        Statement statement =null;
+        ResultSet resultSet = null;
+        String sqlStatement;
+
+        //INSERT INTO `taskmanager`.`groups` (`id`, `name`, `fullname`)
+        //VALUES (NULL, 'Вагонники', 'Отдел экспуатации вагонных составов');
+        
+        sqlStatement = "INSERT INTO `taskmanager`.`groups` (`name`, `fullname`)";
+        sqlStatement += "VALUES ('"+groupname+"', '"+title+"')";
+        
+        
+        try {
+            Class.forName(DATA_BASE_DRIVER);
+            //создать соединение с базой
+            connection = DriverManager.getConnection(CONNECTION_URL, USER_NAME, PASSWORD);
+            //создать выражение
+            statement = connection.createStatement();
+            //выполнить выражение
+            statement.executeQuery(sqlStatement);
+            //результирующий список откопировать
+            rs = statement.getResultSet();
+         
+            
+                        
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                //закрыть выражение
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                //закрыть результируюший набор
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
+
+

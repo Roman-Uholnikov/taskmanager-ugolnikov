@@ -3,6 +3,8 @@
  */
 package Model;
 
+import Control.Exceptions.UserInputException;
+
 /**
  *
  * @author roman
@@ -63,7 +65,18 @@ public class Group {
         this.managerID = managerID;
     }
     
-//    public User getManager() {
-//        return this.manager;
-//    }
+    public static void add(String name, String title, int manager) throws UserInputException{
+        //проверяем, существует ли такой пользователь
+        int managerId = manager;
+        if ((DAO.getInstance().getUser(manager)== null) & (manager > 0)){
+            //данные не верны, пользователь  не существует
+            throw new UserInputException("неверные данные, пользователь не существует");
+        }
+        //добавляем группу
+        DAO.getInstance().addGroup(name, title, manager);
+        //изменяем у пользователя данные о принадлежности к группе и права
+        if (managerId > 0){// отрицательное значение означает что координатора не задавали при создании
+            //change user info
+        }
+    }
 }
