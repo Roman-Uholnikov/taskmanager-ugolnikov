@@ -13,6 +13,8 @@ import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,14 +50,21 @@ public class Groups extends HttpServlet {
             String title = request.getParameter("grouptitle");
             String manager = request.getParameter("groupmanager");
             if((name!=null)&(title!=null)&(manager!=null)){
+                    if (name.equalsIgnoreCase("")|title.equalsIgnoreCase("")){
+                        throw new UserInputException("заполните все поля");
+                    }
                     int managerId;
                     if (manager.equalsIgnoreCase("empty")){
                         managerId = -1;
                     }else{
                         managerId = Integer.valueOf(manager);
                     }
+                try {
                     //добавление
                     Group.add(name, title, managerId);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Groups.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }catch(UserInputException e){
             request.setAttribute("userException", e);
