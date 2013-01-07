@@ -121,6 +121,10 @@ UserInputException userException = (UserInputException)request.getAttribute("use
                 </td>
             </tr>
             <tr>
+                <td colspan="2">Логин<input type="text" name="loginname"></td>
+                <td colspan="3">Пароль<input type="text" name="password"></td>
+            </tr>
+            <tr>
                 <td colspan="5" align="center">
                     <input type="submit" name="adduser" value="добавить">
                 </td>

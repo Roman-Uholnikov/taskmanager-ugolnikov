@@ -5,6 +5,7 @@
 package Control.Servlets;
 
 import Control.Exceptions.UserAutentificationException;
+import Control.Exceptions.UserInputException;
 import Control.WebEngine;
 import Model.DAO;
 import Model.Group;
@@ -14,6 +15,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,10 +48,48 @@ public class Users extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        User user;
         List<Task> currentTasks;
         String search = null;
+        User user;
+        /* парсинг введенных данных*/
+        try{
+            //парсинг
+            String phone = "";
+            String room = "";
+            String loginname = "";
+            String password = "";
+            
+            int rights = 1; // уровень пользователя
+            
+            if((request.getParameter("addname")!=null)&(request.getParameter("addgroup")!=null)
+                    &(request.getParameter("loginname")!=null)&(request.getParameter("password")!=null)){
+                    String name = request.getParameter("addname");
+                    String group = request.getParameter("addgroup");
+                    if (request.getParameter("addphone")!=null) phone = request.getParameter("addphone");
+                    if (request.getParameter("loginname")!=null) loginname = request.getParameter("loginname");
+                    if (request.getParameter("password")!=null) password = request.getParameter("password");
+                    if (request.getParameter("addroom")!=null) room = request.getParameter("addroom");
+                    if (request.getParameter("addcontroller")!= null) rights = 2; // уровень координатора
+                    if (name.equalsIgnoreCase("")|loginname.equalsIgnoreCase("")|password.equalsIgnoreCase("")){
+                        throw new UserInputException("заполите поле Имя,Пароль,Логин");
+                    }
+                    int groupId = Integer.valueOf(group);
+                    //добавление
+                    User newUser = new User();
+                    newUser.setName(name);
+                    newUser.setGroupId(groupId);
+                    newUser.setPhone(phone);
+                    newUser.setLocation(room);
+                    newUser.setRights(rights);
+                    
+                    DAO.getInstance().addUser(newUser, loginname, password);
+            }
+        }catch(UserInputException e){
+            request.setAttribute("userException", e);
+        }
         
+        
+        /* формируем ответ*/
         try{
             
             //пробуем создать пользователя

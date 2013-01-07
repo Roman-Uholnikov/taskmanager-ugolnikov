@@ -708,6 +708,50 @@ public class DAO {
     }
     
     
+    public void addUser(User user, String login, String password) throws UserInputException {
+
+        Statement statement = null;
+        String sqlStatement;
+
+        //INSERT INTO `taskmanager`.`groups` (`id`, `name`, `fullname`)
+        //VALUES (NULL, 'Вагонники', 'Отдел экспуатации вагонных составов');
+        
+        sqlStatement = "INSERT INTO `taskmanager`.`users` (`name`, `group`, `phone`, `location`, `rights`, `loginname`, `password`)";
+        sqlStatement += " VALUES ('"+user.getName()+"', '"+user.getGroupId();
+        sqlStatement +="', '"+user.getPhone();
+        sqlStatement +="', '"+user.getLocation();
+        sqlStatement +="', '"+user.getRights();
+        sqlStatement +="', '"+login;
+        sqlStatement +="', '"+WebEngine.getEncryptString(password);
+        sqlStatement +="')";
+        
+        
+        try {
+            Class.forName(DATA_BASE_DRIVER);
+            //создать соединение с базой
+            connection = DriverManager.getConnection(CONNECTION_URL, USER_NAME, PASSWORD);
+            //создать выражение
+            statement = connection.createStatement();
+            //выполнить выражение
+            //statement.executeQuery(sqlStatement);
+            statement.executeUpdate(sqlStatement);
+            
+            
+                        
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                //закрыть выражение
+                if (statement != null) statement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }   
+    }
+    
     /**
      * сохранение существующего пользователя в бд, после изменнения его свойств
      */
