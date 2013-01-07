@@ -510,6 +510,57 @@ public class DAO {
         }
     }
 
+    /**
+     * получить ИД группи по ее имени
+     * @param name имя групы
+     * @return
+     * @throws ClassNotFoundException 
+     */
+    public int getGroupID(String name) throws ClassNotFoundException{
+
+        int result = 0;
+        Statement statement =null;
+        ResultSet rs = null;
+                
+        
+        String sqlStatement = "SELECT * FROM groups WHERE `name`='" + name+ "'";
+        
+        try {
+            Class.forName(DATA_BASE_DRIVER);
+            //создать соединение с базой
+            connection = DriverManager.getConnection(CONNECTION_URL, USER_NAME, PASSWORD);
+            //создать выражение
+            statement = connection.createStatement();
+            //выполнить выражение
+            statement.executeQuery(sqlStatement);
+            //результирующий список откопировать
+            rs = statement.getResultSet();
+            String currentLogin = null;
+            
+            while (rs.next()) {
+                result = Integer.valueOf(rs.getInt("id"));
+                return result;
+                //блок finally выполнится все равно.
+            }
+            
+                        
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                //закрыть выражение
+                if (rs != null) rs.close();
+                if (statement != null) statement.close();
+                //закрыть результируюший набор
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+        return result;
+    }
+    
     //
     public List<Group> getGroups() throws ClassNotFoundException {
        
@@ -619,11 +670,8 @@ public class DAO {
     
     
     public void addGroup(String groupname,String title,int manager) throws UserInputException {
-       
-        List<Group> resultList = new LinkedList<Group>();  
-        ResultSet rs;
+
         Statement statement =null;
-        ResultSet resultSet = null;
         String sqlStatement;
 
         //INSERT INTO `taskmanager`.`groups` (`id`, `name`, `fullname`)
@@ -640,10 +688,9 @@ public class DAO {
             //создать выражение
             statement = connection.createStatement();
             //выполнить выражение
-            statement.executeQuery(sqlStatement);
-            //результирующий список откопировать
-            rs = statement.getResultSet();
-         
+            //statement.executeQuery(sqlStatement);
+            statement.executeUpdate(sqlStatement);
+            
             
                         
         } catch (SQLException ex) {
@@ -653,14 +700,64 @@ public class DAO {
         }finally{
             try {
                 //закрыть выражение
-                if (resultSet != null) resultSet.close();
                 if (statement != null) statement.close();
-                //закрыть результируюший набор
             } catch (SQLException ex) {
                 Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }   
     }
+    
+    
+    /**
+     * сохранение существующего пользователя в бд, после изменнения его свойств
+     */
+    public void saveRealUser(User user){
+        
+        Statement statement =null;
+        String sqlStatement;
+
+//        UPDATE  `taskmanager`.`users` SET  `name` =  'Герасимов Вениамин1',
+//        `loginname` =  'venya1',
+//        `group` =  '2',
+//        `rights` =  '1',
+//        `location` =  'у коридорi jjjj1',
+//        `phone` =  '1011' WHERE  `users`.`id` =5;
+        
+        sqlStatement = "UPDATE  `taskmanager`.`users` SET"; 
+        sqlStatement += "`name` =  '"+user.getName()+"'";
+        sqlStatement += "`group` =  '"+user.getGroupId()+"'";
+        sqlStatement += "`rights` =  '"+user.getRights()+"'";
+        sqlStatement += "`location` =  '"+user.getLocation()+"'";
+        sqlStatement += "`phone` =  '"+user.getPhone()+"'";
+        sqlStatement += "WHERE  `users`.`id` = "+user.getUserID();
+        
+        
+        try {
+            Class.forName(DATA_BASE_DRIVER);
+            //создать соединение с базой
+            connection = DriverManager.getConnection(CONNECTION_URL, USER_NAME, PASSWORD);
+            //создать выражение
+            statement = connection.createStatement();
+            //выполнить выражение
+            //statement.executeQuery(sqlStatement);
+            statement.executeUpdate(sqlStatement);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                //закрыть выражение
+                if (statement != null) statement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
+    }
+    
+    
+    
 }
 
 
