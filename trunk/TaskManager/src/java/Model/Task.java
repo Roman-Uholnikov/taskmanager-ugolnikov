@@ -156,4 +156,29 @@ public class Task {
         this.closeDate = closeDate;
     }
     
+    
+    public void forward(User newReciver){
+        //передача заявки другому получателю
+        this.setRecever(newReciver.getUserID());
+        DAO.getInstance().updateTask(this);
+    }
+    
+    public void addComment(String comment, int userId){
+        //добавить коментарий
+        ы this.setComment(this.getComment()+"\\n"+new Date()+" "+comment);
+        DAO.getInstance().updateTask(this);
+    }
+
+    public String getCloseDateString() {
+        String result = "";
+        // формат 2013-01-07 07:26:13
+        result += String.valueOf(this.closeDate.getYear()+1900); 
+        result += "-" + String.valueOf(this.closeDate.getMonth()+1);
+        result += "-" + this.closeDate.getDate();
+        result += " " + this.closeDate.getHours();
+        result += ":" + this.closeDate.getMinutes();
+        result += ":" + this.closeDate.getSeconds();
+        return result;
+    }
+    
 }
