@@ -802,6 +802,53 @@ public class DAO {
     
     
     
+    /**
+     * обнавление заявки
+     */
+    public void updateTask(Task task){
+        
+        Statement statement = null;
+        String sqlStatement;
+
+//        UPDATE  `taskmanager`.`users` SET  `name` =  'Герасимов Вениамин1',
+//        `loginname` =  'venya1',
+//        `group` =  '2',
+//        `rights` =  '1',
+//        `location` =  'у коридорi jjjj1',
+//        `phone` =  '1011' WHERE  `users`.`id` =5;
+        
+        sqlStatement = "UPDATE  `taskmanager`.`demends` SET "; 
+        sqlStatement += "`reciver` =  '"+task.getReciver()+"'";
+        sqlStatement += "`comments` =  '"+task.getComment()+"'";
+        sqlStatement += "`closedate` =  '"+task.getCloseDateString()+"'";
+        sqlStatement += " WHERE  `users`.`id` = "+task.getId();
+        
+        
+        try {
+            Class.forName(DATA_BASE_DRIVER);
+            //создать соединение с базой
+            connection = DriverManager.getConnection(CONNECTION_URL, USER_NAME, PASSWORD);
+            //создать выражение
+            statement = connection.createStatement();
+            //выполнить выражение
+            //statement.executeQuery(sqlStatement);
+            statement.executeUpdate(sqlStatement);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            try {
+                //закрыть выражение
+                if (statement != null) statement.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
+    }
+    
+    
 }
 
 
