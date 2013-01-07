@@ -47,14 +47,16 @@ public class Groups extends HttpServlet {
             String name = request.getParameter("groupname");
             String title = request.getParameter("grouptitle");
             String manager = request.getParameter("groupmanager");
-            int managerId;
-            if (manager.equalsIgnoreCase("empty")){
-                managerId = -1;
-            }else{
-                managerId = Integer.valueOf(manager);
+            if((name!=null)&(title!=null)&(manager!=null)){
+                    int managerId;
+                    if (manager.equalsIgnoreCase("empty")){
+                        managerId = -1;
+                    }else{
+                        managerId = Integer.valueOf(manager);
+                    }
+                    //добавление
+                    Group.add(name, title, managerId);
             }
-            //добавление
-            Group.add(name, title, managerId);
         }catch(UserInputException e){
             request.setAttribute("userException", e);
         }

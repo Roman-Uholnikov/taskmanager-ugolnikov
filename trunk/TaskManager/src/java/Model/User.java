@@ -165,4 +165,9 @@ public class User {
         return new ArrayList<Task>(tasksList);
     }
     
+    
+    public void SaveEdit(){
+        //сохраняем экземпляр в бд
+        DAO.getInstance().saveRealUser(this);
+    }
 }
