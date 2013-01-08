@@ -156,17 +156,30 @@ public class Task {
         this.closeDate = closeDate;
     }
     
-    
-    public void forward(User newReciver){
+    /**
+     * передача заявки другому исполнителю
+     * @param newReciver 
+     */
+    public void forward( int userId){
         //передача заявки другому получателю
-        this.setRecever(newReciver.getUserID());
+        this.setRecever(userId);
         DAO.getInstance().updateTask(this);
     }
     
     public void addComment(String comment, int userId){
         //добавить коментарий
-        ы this.setComment(this.getComment()+"\\n"+new Date()+" "+comment);
+        String userName = User.getUser(userId).getName();
+        this.setComment(this.getComment()+"\\n"+new Date()+" "+userName+" "+comment);
         DAO.getInstance().updateTask(this);
+    }
+    
+    /**
+     * закритие заявки (віполнена)
+     */
+    public void close(){
+        this.closeDate = new Date();
+        DAO.getInstance().updateTask(this);
+        
     }
 
     public String getCloseDateString() {

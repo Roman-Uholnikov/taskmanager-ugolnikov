@@ -46,8 +46,9 @@ UserInputException userException = (UserInputException)request.getAttribute("use
                 </td>
             </tr>
             <%
+            
             for(Group group: groups){
-                User manager = null;
+            User manager = null;    
                 for(User user: users){
                     if(user.getGroupId() == group.getId()){         //если пользователь входит в группу
                         if(user.getRights() == User.MANGER_RIGHTTS){//и имеет права координатора

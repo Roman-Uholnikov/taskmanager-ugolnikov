@@ -10,6 +10,7 @@
 <%@page import="java.util.List"%>
 <% List<Task> tasks = (List<Task>)request.getAttribute("tasks");
     UserInputException userException = (UserInputException)request.getAttribute("userException");
+    List<User> users = (List<User>)request.getAttribute("users");
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -131,10 +132,11 @@
                     <br>
                     получатель
                     <select name="reciver">
-                        <option value="-1"></option>
-                        <option value="3457">Угльников Роман</option>
-                        <option value="3567"> Лобода Юлия</option>
-                        <option value="5235"> Пользоватлеь 1</option>
+                        <%
+                        for(User currentUser : users){
+                            out.println("<option value=\""+currentUser.getUserID()+"\">"+currentUser.getName()+"</option>");
+                        }
+                        %>
                     </select>
                     </td>
                     <td>

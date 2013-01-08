@@ -818,10 +818,10 @@ public class DAO {
 //        `phone` =  '1011' WHERE  `users`.`id` =5;
         
         sqlStatement = "UPDATE  `taskmanager`.`demends` SET "; 
-        sqlStatement += "`reciver` =  '"+task.getReciver()+"'";
-        sqlStatement += "`comments` =  '"+task.getComment()+"'";
-        sqlStatement += "`closedate` =  '"+task.getCloseDateString()+"'";
-        sqlStatement += " WHERE  `users`.`id` = "+task.getId();
+        sqlStatement += "`reciver` =  '"+task.getReciver()+"', ";
+        sqlStatement += "`comments` =  '"+task.getComment()+"' ,";
+        sqlStatement += "`closedate` =  '"+task.getCloseDateString()+"' ";
+        sqlStatement += " WHERE  `demends`.`id` = "+task.getId();
         
         
         try {
