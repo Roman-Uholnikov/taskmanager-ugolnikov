@@ -5,13 +5,16 @@
 package Control.Servlets;
 
 import Control.Exceptions.UserAutentificationException;
+import Control.Exceptions.UserInputException;
 import Control.WebEngine;
+import Model.DAO;
 import Model.Task;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,8 +50,61 @@ public class Tasks extends HttpServlet {
         PrintWriter out = response.getWriter();
         User user;
         List<Task> currentTasks;
+        UserInputException userException = null;
+        String [] itemsString;
+        int [] items;
+        Task task;
         
         try{
+            //проверка входных данных.
+            try{
+                if (request.getParameter("action")!=null){
+                    if (request.getParameter("commenttext").equalsIgnoreCase("")) {
+                        throw new UserInputException("поле коментария не может быть пустым");
+                    }
+                    if (request.getParameter("item")==null) {
+                        throw new UserInputException("выбирете хотябы одну заявку");
+                    }
+                    
+                    
+                    String se = "";
+                    Map paramMap = request.getParameterMap();
+                    itemsString = (String[])paramMap.get("item");
+                    items = new int[itemsString.length];
+                    for (int i = 0; i < itemsString.length; i++) {
+                        items[i] = Integer.valueOf(itemsString[i]);
+                    }
+                    
+                    //все проверели, теперь выполняем действие
+                    for (int i : items) {
+                        task = DAO.getInstance().getTask(i);
+                        //добавит коментарий
+                        if(request.getParameter("action").equalsIgnoreCase("addComent")){
+                            task.addComment(request.getParameter("commenttext"), 
+                                    WebEngine.getUserId(request));
+                        }
+                        //переслать
+                        if(request.getParameter("action").equalsIgnoreCase("addComent")){
+                            task.forward(WebEngine.getUserId(request));
+                            task.addComment(request.getParameter("commenttext"), 
+                                    WebEngine.getUserId(request));
+                        }
+                        //закрыть
+                        if(request.getParameter("action").equalsIgnoreCase("addComent")){
+                            task.addComment(request.getParameter("commenttext"), 
+                                    WebEngine.getUserId(request));
+                            task.close();
+                        }
+                    }
+                    
+                    
+                }
+            }catch(UserInputException e){
+                userException = e;
+            }
+            
+            
+            
             
             //пробуем создать пользователя
             user = User.getUser(WebEngine.getUserId(request));
@@ -58,9 +114,12 @@ public class Tasks extends HttpServlet {
             
             //создаем переменную с помощью которой мы передадим данные в jsp
             currentTasks = new ArrayList<Task>(user.getTasksQueue());
+            List<User> users = DAO.getInstance().getUsers(null);
             //xxx формируемм список Tasks в зависимости от условий посика и сортировки ()
             
-            request.setAttribute("tasks", currentTasks);
+            request.setAttribute("tasks", currentTasks); 
+            request.setAttribute("users", users);
+            request.setAttribute("userException", userException);
             //перенаправление в jsp
             if (dispatcherJsp != null){
                dispatcherJsp.forward(request, response);
